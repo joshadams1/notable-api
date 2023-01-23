@@ -2,7 +2,20 @@ import { Model, DataTypes } from 'sequelize';
 import appointmentDB from '../db_connections/appointment_connection';
 
 class Appointment extends Model {
+    static async createAppointment(doctorId: string, name: string, time: Date, kind: string, email: string): Promise<Appointment | String> {
+        const appointment = await Appointment.create({
+            doctorId,
+            name,
+            time,
+            kind,
+            email
+        });
+        if (!appointment) {
+            return 'failed to create appointment';
+        }
 
+        return appointment;
+    }
 }
 
 Appointment.init({
@@ -21,7 +34,7 @@ Appointment.init({
         allowNull: false
     },
     time: {
-        type: DataTypes.STRING,
+        type: DataTypes.DATE,
         allowNull: false
     },
     kind: {
