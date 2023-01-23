@@ -23,4 +23,13 @@ then run "npm run serve" again.
 This project was created with Sqlite3. It is suggested that you download a tool like Sqlite Explorer if you'd like to look
 at the tables. The tables can be found through this directory path: src -> db -> tables
 
+# Routes
+1. Doctors
+    1. GET /doctors
+        - Returns all doctors and their information.
+    2. GET /doctors/:id
+        - Returns a doctor based on their id from the doctor table.
+    3. GET /doctors/:id/appointments
+        - Returns all appointments for a doctor based on the id given.
+
 
