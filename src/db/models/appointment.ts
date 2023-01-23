@@ -2,7 +2,7 @@ import { Model, DataTypes } from 'sequelize';
 import appointmentDB from '../db_connections/appointment_connection';
 
 class Appointment extends Model {
-    static async createAppointment(request: any): Promise<Appointment | String> {
+    static async createAppointment(request: {doctorId: string, name: string, time: string, kind: string}): Promise<Appointment | String> {
         const {doctorId, name, time, kind} = request;
         const appointment = await Appointment.create({
             doctorId,
@@ -17,7 +17,7 @@ class Appointment extends Model {
         return appointment;
     }
 
-    static async findAppointmentsByDoctorID(id: string): Promise<any> {
+    static async findAppointmentsByDoctorID(id: string): Promise<Appointment[] | []> {
         const appointments = Appointment.findAll({
             where: {
                 doctorId: id
