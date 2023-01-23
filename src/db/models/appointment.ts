@@ -52,13 +52,7 @@ Appointment.init({
     }
 }, {
     sequelize: appointmentDB,
-    modelName: 'appointment',
-    // indexes: [
-    //     {
-    //         unique: fa,
-    //         fields: ['doctorId']
-    //     }
-    // ]
+    modelName: 'appointment'
 });
 
 export default Appointment;

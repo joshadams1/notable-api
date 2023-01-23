@@ -7,7 +7,6 @@ const router = express.Router();
 const createAppointmentSchema = joi.object({
     doctorId: joi.string().guid(),
     name: joi.string().required(),
-    // figure out how you want to handle the time
     time: joi.string().required(),
     kind: joi.string().required()
 });
