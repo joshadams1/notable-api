@@ -4,11 +4,13 @@ import cors from 'cors';
 import doctorsRoute from './routes/doctors';
 
 import doctorDB from './db/db_connections/doctor_connection';
+import appointmentDB from './db/db_connections/appointment_connection';
 
 const app = express();
 
 // Sync databases
 doctorDB.sync();
+appointmentDB.sync();
 
 // Add middleware
 app.use(cors());
