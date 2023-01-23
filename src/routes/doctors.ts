@@ -41,12 +41,12 @@ router.get('/:id/appointments', async (req, res) => {
 router.post('/', async (req, res) => {
     // Joi validation.
     try {
-        await createDoctorShema.validateAsync(req.body);
+        await createDoctorShema.validateAsync(req?.body);
     } catch (error) {
         return res.status(400).send('Invalid request');
     }
     // Create the doctor if validation is passed.
-    const newDoctor: Doctor = await Doctor.create(req.body);
+    const newDoctor: Doctor = await Doctor.create(req?.body);
     if (!newDoctor) {
         return res.status(500).send('Failed to create doctor');
     }
