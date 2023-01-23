@@ -9,8 +9,4 @@ const app = (0, express_1.default)();
 // Add middleware
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
-app.get('/', (req, res) => {
-    console.log('hello world');
-    res.send('hello world');
-});
 app.listen(8000, () => console.log(`Server running on port 8000`));
