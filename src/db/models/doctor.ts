@@ -37,14 +37,7 @@ Doctor.init({
     }
 }, {
     sequelize: doctorDB,
-    modelName: 'doctor',
-    // if we need to create an appointment table then we'll add an index to the model and index it on doctorid field
-    // indexes: [
-    //     {
-    //         unique: true,
-    //         fields: ['username']
-    //     }
-    // ]
+    modelName: 'doctor'
 });
 
 export default Doctor;
