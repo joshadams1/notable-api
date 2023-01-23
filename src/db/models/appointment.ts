@@ -2,19 +2,28 @@ import { Model, DataTypes } from 'sequelize';
 import appointmentDB from '../db_connections/appointment_connection';
 
 class Appointment extends Model {
-    static async createAppointment(doctorId: string, name: string, time: Date, kind: string, email: string): Promise<Appointment | String> {
+    static async createAppointment(request: any): Promise<Appointment | String> {
+        const {doctorId, name, time, kind} = request;
         const appointment = await Appointment.create({
             doctorId,
             name,
             time,
-            kind,
-            email
+            kind
         });
         if (!appointment) {
             return 'failed to create appointment';
         }
 
         return appointment;
+    }
+
+    static async findAppointmentsByDoctorID(id: string): Promise<any> {
+        const appointments = Appointment.findAll({
+            where: {
+                doctorId: id
+            }
+        });
+        return appointments;
     }
 }
 
@@ -34,26 +43,22 @@ Appointment.init({
         allowNull: false
     },
     time: {
-        type: DataTypes.DATE,
-        allowNull: false
-    },
-    kind: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    email: {
+    kind: {
         type: DataTypes.STRING,
         allowNull: false
     }
 }, {
     sequelize: appointmentDB,
     modelName: 'appointment',
-    indexes: [
-        {
-            unique: true,
-            fields: ['doctorId']
-        }
-    ]
+    // indexes: [
+    //     {
+    //         unique: fa,
+    //         fields: ['doctorId']
+    //     }
+    // ]
 });
 
 export default Appointment;

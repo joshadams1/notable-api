@@ -1,6 +1,7 @@
 import express from 'express';
 import joi from 'joi';
 import Doctor from '../db/models/doctor';
+import Appointment from '../db/models/appointment';
 
 const router = express.Router();
 
@@ -25,6 +26,12 @@ router.get('/:id', async (req, res) => {
     const doctors: Doctor[] = await Doctor.getAllDoctors();
     res.send(doctors);
 });
+
+router.get('/:id/appointments', async (req, res) => {
+    const { id } = req.params;
+    const appointments = await Appointment.findAppointmentsByDoctorID(id);
+    res.send(appointments);
+})
 
 // Add a new doctor to the DB.
 router.post('/', async (req, res) => {

@@ -5,10 +5,11 @@ import Appointment from '../db/models/appointment';
 const router = express.Router();
 
 const createAppointmentSchema = joi.object({
-    username: joi.string().required(),
-    firstName: joi.string().required(),
-    lastName: joi.string().required(),
-    email: joi.string().required()
+    doctorId: joi.string().guid(),
+    name: joi.string().required(),
+    // figure out how you want to handle the time
+    time: joi.string().required(),
+    kind: joi.string().required()
 });
 
 // Add a new doctor to the DB.
@@ -20,9 +21,9 @@ router.post('/', async (req, res) => {
         return res.status(400).send('Invalid request');
     }
     // Create the doctor if validation is passed.
-    const appointMent: Appointment = await Appointment.create(req.body);
+    const appointment = await Appointment.createAppointment(req.body);
     // Send back the information about the newly created doctor.
-    res.send('test');
+    res.send(appointment);
 });
 
 export default router;
