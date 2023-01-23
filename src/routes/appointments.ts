@@ -12,7 +12,7 @@ const createAppointmentSchema = joi.object({
     kind: joi.string().required()
 });
 
-// Add a new doctor to the DB.
+// Add a new appointment to the DB.
 router.post('/', async (req, res) => {
     // Joi validation.
     try {
@@ -20,9 +20,12 @@ router.post('/', async (req, res) => {
     } catch (error) {
         return res.status(400).send('Invalid request');
     }
-    // Create the doctor if validation is passed.
+    // Create the appointment if validation is passed.
     const appointment = await Appointment.createAppointment(req.body);
-    // Send back the information about the newly created doctor.
+    if (!appointment) {
+        return res.status(500).send('Failed to create appointment');
+    }
+    // Send back the information about the newly created appointment.
     res.send(appointment);
 });
 

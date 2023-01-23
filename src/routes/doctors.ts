@@ -27,8 +27,12 @@ router.get('/:id', async (req, res) => {
     res.send(doctors);
 });
 
+// Get all appointments for a doctor based on their id.
 router.get('/:id/appointments', async (req, res) => {
-    const { id } = req.params;
+    const { id } = req?.params;
+    if (!id) {
+        return res.status(400).send('Failed to provide id')
+    }
     const appointments = await Appointment.findAppointmentsByDoctorID(id);
     res.send(appointments);
 })
@@ -42,13 +46,12 @@ router.post('/', async (req, res) => {
         return res.status(400).send('Invalid request');
     }
     // Create the doctor if validation is passed.
-    try {
-        const newDoctor: Doctor = await Doctor.create(req.body);
-    } catch(error) {
-        console.log("error =>", error)
+    const newDoctor: Doctor = await Doctor.create(req.body);
+    if (!newDoctor) {
+        return res.status(500).send('Failed to create doctor');
     }
     // Send back the information about the newly created doctor.
-    res.send('test');
+    res.send(newDoctor);
 });
 
 export default router;
